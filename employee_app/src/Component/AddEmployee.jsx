@@ -1,58 +1,116 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React,{useState} from "react";
+import axios from "axios";
 
-const AddEmployee = () => {
-    const [name, setName] = useState('');
-    const [position, setPosition] = useState('');
-    const [department, setDepartment] = useState('');
+ const AddDetails=()=>{
+    const[name,addName]=useState('');
+    const [address,addAddress]=useState('');
+    const [position,addPos]=useState('');
+    const [salary,addSalry]=useState('');
+    const [experiance,addExpr]=useState('');
+    const [phone,addPhone]=useState('');
+    const [email,addEmail]=useState('');
+    const [empid,addEmpid]=useState('');
 
-    const handleSubmit = (e) => {
+
+    const handelSubmit =(e)=>{
+        console.log('add form');
+        
         e.preventDefault();
-        axios.post('https://dummyjson.com/api/users/', { name, position, department }) 
-            .then(response => {
-                console.log(response.data);
-                setName('');
-                setPosition('');
-                setDepartment('');
-            })
-            .catch(error => console.log(error));
+        axios.post('https://aiswarya2325.pythonanywhere.com/employemanagement/employees/',{name,address,position,salary,experiance,phone,email,empid})
+        .then (response=>{
+            console.log(response.data);
+            addName('');
+            addAddress('');
+            addPos('');
+            addSalry('');
+            addExpr('')
+            addPhone('')
+            addEmail('');
+            addEmpid('')
+        })
+        .catch(error=> console.log(error));
     }
-
-    return (
+     return(
         <div className="container">
-            <form onSubmit={handleSubmit}>
-                <h2 className='text-info'><u>Add Employee</u></h2>
+            <form onSubmit={handelSubmit}>
+                <h2 className='text-info'><u>Add Details</u></h2>
                 <div>
-                    <label className='text-dark'>Name</label>
-                    <input
-                        className='form-control'
+                    <label className="text-dark">Name</label>
+                    <input 
+                        className="form-control"
                         type="text"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e)=> addName(e.target.value)}
                     />
                 </div>
                 <div className="mt-2">
-                    <label>Position</label>
-                    <input
-                        className='form-control'
+                    <label>Address</label>
+                    <textarea
+                        className="form-control"
+                        value={address}
+                        onChange={(e)=> addAddress(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label className="text-dark">Position</label>
+                    <input 
+                        className="form-control"
                         type="text"
                         value={position}
-                        onChange={(e) => setPosition(e.target.value)}
+                        onChange={(e)=> addPos(e.target.value)}
                     />
                 </div>
-                <div className="mt-2">
-                    <label>Department</label>
-                    <input
-                        className='form-control'
+                <div>
+                    <label className="text-dark">Salary</label>
+                    <input 
+                        className="form-control"
+                        type="number"
+                        value={salary}
+                        onChange={(e)=> addSalry(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label className="text-dark">Experience</label>
+                    <input 
+                        className="form-control"
                         type="text"
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
+                        value={experiance}
+                        onChange={(e)=> addExpr(e.target.value)}
                     />
                 </div>
-                <button type="submit" className='btn btn-success mt-3'>Add Employee</button>
+                <div>
+                    <label className="text-dark">Phone No.</label>
+                    <input 
+                        className="form-control"
+                        type="number"
+                        value={phone}
+                        onChange={(e)=> addPhone(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label className="text-dark">Email</label>
+                    <input 
+                        className="form-control"
+                        type="email"
+                        value={email}
+                        onChange={(e)=> addEmail(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label className="text-dark">EmpId</label>
+                    <input 
+                        className="form-control"
+                        type="number"
+                        value={empid}
+                        onChange={(e)=> addEmpid(e.target.value)}
+                    />
+                </div>
+
+                    <button type="submit" className="btn btn-success mt-3">Add</button>
             </form>
         </div>
-    )
-}
+     )
+ }
+ export default AddDetails
 
-export default AddEmployee;
+

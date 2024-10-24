@@ -4,17 +4,17 @@ import axios from "axios";
 const EmployeeList = () => {
     const [employees, setEmployees] = useState([]);
     const [editing, setEditing] = useState(false);
-    const [currentEmployee, setCurrentEmployee] = useState({ id: null, name: '',address : '', position: '',salary:'',experience:'',phone:'',email:'',empid:'' });
+    const [currentEmployee, setCurrentEmployee] = useState({ id: null, name: '', address: '', position: '', salary: '', experience: '', phone: '', email: '', empid: '' });
 
     useEffect(() => {
-        axios.get('https://dummyjson.com/api/users/') 
+        axios.get('https://aiswarya2325.pythonanywhere.com/employemanagement/employees/') 
             .then(response => setEmployees(response.data))
             .catch(error => console.log(error));
     }, []);
 
     const deleteEmployee = (id) => {
-        axios.delete(``) 
-            .then(response => {
+        axios.delete(`https://aiswarya2325.pythonanywhere.com/employemanagement/employees/${id}/`) 
+            .then(() => {
                 setEmployees(employees.filter(employee => employee.id !== id));
             })
             .catch(error => console.log(error));
@@ -27,7 +27,7 @@ const EmployeeList = () => {
 
     const updateEmployee = (id, updatedEmployee) => {
         setEditing(false);
-        axios.put(`https://dummyjson.com/api/users/${id}/`, updatedEmployee) 
+        axios.put(`https://aiswarya2325.pythonanywhere.com/employemanagement/employees/${id}/`, updatedEmployee) 
             .then(response => {
                 setEmployees(employees.map(employee => (employee.id === id ? response.data : employee)));
             })
@@ -44,11 +44,11 @@ const EmployeeList = () => {
                         <th>Name</th>
                         <th>Address</th>
                         <th>Position</th>
-                        <th>salary</th>
-                        <th>experience</th>
-                        <th>phone</th>
-                        <th>email</th>
-                        <th>empid</th>
+                        <th>Salary</th>
+                        <th>Experience</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Emp ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +56,7 @@ const EmployeeList = () => {
                         <tr key={employee.id}>
                             <td>{employee.id}</td>
                             <td>{employee.name}</td>
+                            <td>{employee.address}</td>
                             <td>{employee.position}</td>
                             <td>{employee.salary}</td>
                             <td>{employee.experience}</td>
@@ -74,14 +75,19 @@ const EmployeeList = () => {
                 <EditEmployeeForm
                     currentEmployee={currentEmployee}
                     updateEmployee={updateEmployee}
+                    setEditing={setEditing}
                 />
             ) : null}
         </div>
     );
 }
 
-const EditEmployeeForm = ({ currentEmployee, updateEmployee }) => {
+const EditEmployeeForm = ({ currentEmployee, updateEmployee, setEditing }) => {
     const [employee, setEmployee] = useState(currentEmployee);
+
+    useEffect(() => {
+        setEmployee(currentEmployee);
+    }, [currentEmployee]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -109,16 +115,11 @@ const EditEmployeeForm = ({ currentEmployee, updateEmployee }) => {
                 <label>Address</label>
                 <input
                     type="text"
-                    name="position"
+                    name="address"
                     value={employee.address}
                     onChange={handleInputChange}
                 />
             </div>
-
-
-
-
-
             <div>
                 <label>Position</label>
                 <input
@@ -129,16 +130,16 @@ const EditEmployeeForm = ({ currentEmployee, updateEmployee }) => {
                 />
             </div>
             <div>
-                <label>salary</label>
+                <label>Salary</label>
                 <input
                     type="number"
-                    name="department"
+                    name="salary"
                     value={employee.salary}
                     onChange={handleInputChange}
                 />
             </div>
             <div>
-                <label>experience</label>
+                <label>Experience</label>
                 <input
                     type="text"
                     name="experience"
@@ -147,27 +148,29 @@ const EditEmployeeForm = ({ currentEmployee, updateEmployee }) => {
                 />
             </div>
             <div>
-                <label>phone</label>
+                <label>Phone</label>
                 <input
-                    type="number"
-                    name="department"
+                    type="text"
+                    name="phone"
                     value={employee.phone}
                     onChange={handleInputChange}
                 />
             </div>
             <div>
-                <label>email</label>
+                <label>Email</label>
                 <input
                     type="email"
-                    name="department"
+                    name="email"
                     value={employee.email}
                     onChange={handleInputChange}
                 />
             </div>
 
             <button type="submit">Update Employee</button>
+            
         </form>
     );
 };
 
 export default EmployeeList;
+
