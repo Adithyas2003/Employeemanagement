@@ -45,7 +45,7 @@ const EmployeeList = () => {
                         <th>Address</th>
                         <th>Position</th>
                         <th>Salary</th>
-                        <th>Experience</th>
+                        <th>Experiance</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Emp ID</th>
@@ -59,7 +59,7 @@ const EmployeeList = () => {
                             <td>{employee.address}</td>
                             <td>{employee.position}</td>
                             <td>{employee.salary}</td>
-                            <td>{employee.experience}</td>
+                            <td>{employee.experiance}</td>
                             <td>{employee.phone}</td>
                             <td>{employee.email}</td>
                             <td>{employee.empid}</td>
@@ -142,8 +142,8 @@ const EditEmployeeForm = ({ currentEmployee, updateEmployee, setEditing }) => {
                 <label>Experience</label>
                 <input
                     type="text"
-                    name="experience"
-                    value={employee.experience}
+                    name="experiance"
+                    value={employee.experiance}
                     onChange={handleInputChange}
                 />
             </div>
