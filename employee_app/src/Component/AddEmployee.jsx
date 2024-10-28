@@ -16,7 +16,7 @@ import axios from "axios";
         console.log('add form');
         
         e.preventDefault();
-        axios.post('https://aiswarya2325.pythonanywhere.com/employemanagement/employees/',{name,address,position,salary,experiance,phone,email,empid})
+        axios.post('https://alan2325.pythonanywhere.com/employe/employees/',{name,address,position,salary,experiance,phone,email,empid})
         .then (response=>{
             console.log(response.data);
             addName('');
